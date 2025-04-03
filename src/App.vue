@@ -25,12 +25,12 @@ const handleClick = async () => {
       <div class="container__item container__item--image">
         <img src="/logo.png" alt="logo" class="container__logo">
       </div>
+      <div class="container__item">123</div>
       <div class="container__item">
         <Button @click="handleClick" :disabled="isLoading">
           Крути
         </Button>
       </div>
-      <div class="container__item">123</div>
     </div>
 
     <div class="container__ellipse container__ellipse--bottom"/>

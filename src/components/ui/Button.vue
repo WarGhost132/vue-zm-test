@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue'
+import { defineEmits, defineProps, useSlots } from 'vue'
 
 const props = defineProps({
   disabled: {
@@ -9,11 +9,16 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['click'])
+const slots = useSlots()
 
 const handleClick = () => {
   if (!props.disabled) {
     emit('click')
   }
+}
+
+const slotText = () => {
+  return slots.default?.()[0]?.children?.toString() || ''
 }
 </script>
 
@@ -25,7 +30,7 @@ const handleClick = () => {
     :aria-disabled="disabled"
     :class="{ 'ui-button--disabled': disabled }"
   >
-    <span class="ui-button__text">
+    <span class="ui-button__text" :data-text="slotText()">
       <slot />
     </span>
   </button>
@@ -38,8 +43,9 @@ const handleClick = () => {
   justify-content: center;
   position: relative;
   cursor: pointer;
+  width: 400px;
 
-  padding: 16px 150px;
+  padding: 16px 0;
 
   border: none;
   border-radius: 100px;
@@ -69,6 +75,23 @@ const handleClick = () => {
 }
 
 .ui-button__text {
+  font-family: "Geologica", sans-serif;
+  font-size: clamp(1.25rem, 2vw, 2rem);;
   text-transform: uppercase;
+  color: $button-text-color;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: attr(data-text);
+    position: absolute;
+    z-index: -1;
+    -webkit-text-stroke: 2px transparent;
+    background: $button-text-stroke;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    left: 0;
+  }
 }
 </style>
