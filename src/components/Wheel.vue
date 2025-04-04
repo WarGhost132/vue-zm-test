@@ -8,6 +8,7 @@ interface Prize {
 
 const props = defineProps<{
   shouldSpin: boolean
+  forceWin300?: boolean
 }>()
 
 const emit = defineEmits(['spinComplete'])
@@ -49,7 +50,11 @@ const startSpin = () => {
   
   const fullRotations = 5 + Math.floor(Math.random() * 3)
   const segmentAngle = 360 / prizes.length
-  const targetSegment = Math.floor(Math.random() * prizes.length)
+  
+  const targetSegment = props.forceWin300 
+    ? prizes.findIndex(p => p.value === '300')
+    : Math.floor(Math.random() * prizes.length)
+  
   const targetRotation = -(fullRotations * 360 + targetSegment * segmentAngle)
   
   const startTime = performance.now()

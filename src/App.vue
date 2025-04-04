@@ -4,6 +4,8 @@ import Wheel from '@/components/Wheel.vue'
 import ResultModal from '@/components/ResultModal.vue'
 import { ref } from 'vue'
 
+const forceWin300 = ref(true)
+
 const isLoading = ref(false)
 const result = ref<string>('')
 const isModalOpen = ref(false)
@@ -42,7 +44,8 @@ const closeModal = () => {
       </div>
       <div class="container__item">
         <Wheel 
-          :should-spin="shouldSpin" 
+          :should-spin="shouldSpin"
+          :force-win300="forceWin300"
           @spin-complete="handleSpinResult" 
         />
       </div>
@@ -107,16 +110,6 @@ const closeModal = () => {
     justify-content: space-between;
     align-items: center;
     padding: 50px 0;
-  }
-
-  &__item {
-    &--image {
-      // Стили для контейнера с логотипом
-    }
-  }
-
-  &__logo {
-    // Стили для логотипа
   }
 }
 
