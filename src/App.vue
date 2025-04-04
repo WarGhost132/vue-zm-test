@@ -10,6 +10,8 @@ const isModalOpen = ref(false)
 const shouldSpin = ref(false)
 
 const handleSpinClick = () => {
+  if (isLoading.value) return
+  
   isLoading.value = true
   shouldSpin.value = true
 }
@@ -17,12 +19,11 @@ const handleSpinClick = () => {
 const handleSpinResult = (prize: string) => {
   isLoading.value = false
   shouldSpin.value = false
+  result.value = prize
 
   if (prize === 'Повтор') {
     return
   }
-
-  result.value = prize
   isModalOpen.value = true
 }
 
@@ -40,14 +41,18 @@ const closeModal = () => {
         <img src="/logo.png" alt="logo" class="container__logo">
       </div>
       <div class="container__item">
-        <Wheel />
+        <Wheel 
+          :should-spin="shouldSpin" 
+          @spin-complete="handleSpinResult" 
+        />
       </div>
       <div class="container__item">
-        <!-- <Button @click="handleSpinClick" :disabled="isLoading">
-          Крути
-        </Button> -->
-        <Button @click="handleSpinClick" :disabled="isLoading">
-          Крути
+        <Button 
+          @click="handleSpinClick" 
+          :disabled="isLoading"
+          :class="{ 'pulse': isLoading }"
+        >
+          {{ isLoading ? 'Крутится...' : 'Крути' }}
         </Button>
       </div>
     </div>
@@ -106,12 +111,22 @@ const closeModal = () => {
 
   &__item {
     &--image {
-      
+      // Стили для контейнера с логотипом
     }
   }
 
   &__logo {
-    
+    // Стили для логотипа
   }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 1s infinite;
 }
 </style>
