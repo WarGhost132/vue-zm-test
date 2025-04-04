@@ -67,13 +67,13 @@ const prizes: Prize[] = [
 
   &--vector {
     position: absolute;
-    width: 465px;
-    height: 465px;
+    width: 720px;
+    height: 720px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: url("/Vector.svg") center / contain no-repeat;
-    z-index: -1;
+    z-index: -3;
     transform-origin: center;
   }
 
@@ -119,11 +119,13 @@ const prizes: Prize[] = [
     text-align: center;
     padding-top: 90px;
     box-sizing: border-box;
+    z-index: -2;
   }
 
   &__item-text {
     display: inline-block;
-    font-size: 18px;
+    text-transform: uppercase;
+    font-size: 24px;
     font-weight: bold;
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
