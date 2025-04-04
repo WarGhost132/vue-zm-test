@@ -4,11 +4,14 @@ $background-gradient: linear-gradient(#295890, #323168);
 $ellipse-top: rgba(35, 132, 166, 0.5);
 $ellipse-bottom: rgba(83, 19, 132, 0.5);
 
+$text-color: #fff;
+$text-stroke: linear-gradient(#490082, #DB00FF, #490082);
+
 $button-color: linear-gradient(#FFC700, #E4A400);
 $button-color-hover: linear-gradient(#FFEA2F, #FFB800);
 
-$button-text-color: #fff;
-$button-text-stroke: linear-gradient(#490082, #DB00FF, #490082);
+$button-text-color: $text-color;
+$button-text-stroke: $text-stroke;
 
 $button-shadow:
   inset 0 -6px 4px 0 rgba(0, 0, 0, 0.2),
@@ -18,3 +21,10 @@ $button-shadow-hover:
   inset 0 -6px 4px 0 rgba(0, 0, 0, 0.2),
   inset 0 4px 4px 0 rgba(255, 255, 255, 0.5),
   0 6px 12px 0 rgba(38, 108, 154, 1);
+
+$modal-background: linear-gradient(#5977C3, #54268D);
+$modal-border: linear-gradient(#789CD2, #403EA6, #3E1E72);
+
+$modal-text-color: $text-color;
+$modal-text-result: #F5BA00;
+$modal-text-stroke: $text-stroke;

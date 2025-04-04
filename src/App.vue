@@ -1,19 +1,33 @@
 <script setup lang="ts">
 import Button from '@/components/ui/Button.vue'
+import Wheel from '@/components/Wheel.vue'
+import ResultModal from '@/components/ResultModal.vue'
 import { ref } from 'vue'
 
 const isLoading = ref(false)
+const result = ref<string>('')
+const isModalOpen = ref(false)
+const shouldSpin = ref(false)
 
-const handleClick = async () => {
-  try {
-    isLoading.value = true
+const handleSpinClick = () => {
+  isLoading.value = true
+  shouldSpin.value = true
+}
 
-    await new Promise(resolve => setTimeout(resolve, 3000))
-  } catch (error) {
-    
-  } finally {
-    isLoading.value = false
+const handleSpinResult = (prize: string) => {
+  isLoading.value = false
+  shouldSpin.value = false
+
+  if (prize === 'Повтор') {
+    return
   }
+
+  result.value = prize
+  isModalOpen.value = true
+}
+
+const closeModal = () => {
+  isModalOpen.value = false
 }
 </script>
 
@@ -25,15 +39,26 @@ const handleClick = async () => {
       <div class="container__item container__item--image">
         <img src="/logo.png" alt="logo" class="container__logo">
       </div>
-      <div class="container__item">123</div>
       <div class="container__item">
-        <Button @click="handleClick" :disabled="isLoading">
+        <Wheel />
+      </div>
+      <div class="container__item">
+        <!-- <Button @click="handleSpinClick" :disabled="isLoading">
+          Крути
+        </Button> -->
+        <Button @click="handleSpinClick" :disabled="isLoading">
           Крути
         </Button>
       </div>
     </div>
 
     <div class="container__ellipse container__ellipse--bottom"/>
+
+    <ResultModal 
+      :result="result" 
+      :is-open="isModalOpen" 
+      @close="closeModal" 
+    />
   </div>
 </template>
 
