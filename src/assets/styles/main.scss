@@ -1,7 +1,15 @@
 @use "./variables.scss" as *;
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  background: $background-gradient;
+  font-weight: bold;
+  font-family: "Geologica", sans-serif;
 }
