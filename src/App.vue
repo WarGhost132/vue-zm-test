@@ -76,14 +76,20 @@ const closeModal = () => {
 .container {
   position: relative;
   margin: 0 auto;
-  height: 100svh;
+  min-height: 100dvh;
+  width: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &__logo {
+    width: 140px;
+  }
 
   &__ellipse {
     position: absolute;
     z-index: -1;
     border-radius: 50%;
-    border: 1px solid black;
     height: 500px;
     width: 1200px;
     overflow: hidden;
@@ -106,12 +112,14 @@ const closeModal = () => {
   }
 
   &__items {
-    height: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 50px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
@@ -123,5 +131,11 @@ const closeModal = () => {
 
 .pulse {
   animation: pulse 1s infinite;
+}
+
+@media (max-width: 480px) {
+  .container__logo {
+    width: 120px;
+  }
 }
 </style>

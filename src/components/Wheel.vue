@@ -130,7 +130,7 @@ watch(() => props.shouldSpin, (newVal) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  min-height: 700px;
 }
 
 .wheel {
@@ -138,6 +138,8 @@ watch(() => props.shouldSpin, (newVal) => {
   width: 565px;
   height: 565px;
   background: url("/Border.svg") center / contain no-repeat;
+  border-radius: 50%;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
 
   &--marker {
     position: absolute;
@@ -220,6 +222,126 @@ watch(() => props.shouldSpin, (newVal) => {
     font-weight: bold;
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+}
+
+@media (max-height: 768px) {
+  .wheel-container {
+    min-height: 600px;
+  }
+
+  .wheel {
+    width: 450px;
+    height: 450px;
+
+    &--marker {
+      width: 180px;
+      height: 180px;
+    }
+
+    &--vector {
+      width: 550px;
+      height: 550px;
+    }
+
+    &--center {
+      width: 120px;
+      height: 120px;
+    }
+
+    &__item {
+      padding-top: 45px;
+    }
+
+    &__item-text {
+      font-size: 20px;
+      padding-top: 20px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .wheel {
+    width: 450px;
+    height: 450px;
+
+    &--marker {
+      width: 180px;
+      height: 180px;
+    }
+
+    &--vector {
+      width: 550px;
+      height: 550px;
+    }
+
+    &--center {
+      width: 120px;
+      height: 120px;
+    }
+
+    &__item {
+      padding-top: 45px;
+    }
+
+    &__item-text {
+      font-size: 20px;
+      padding-top: 20px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .wheel {
+    width: 400px;
+    height: 400px;
+
+    &--marker {
+      width: 150px;
+      height: 150px;
+    }
+
+    &--vector {
+      width: 500px;
+      height: 500px;
+    }
+
+    &--center {
+      width: 100px;
+      height: 100px;
+    }
+
+    &__item-text {
+      font-size: 16px;
+      padding-top: 15px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .wheel {
+    width: 350px;
+    height: 350px;
+
+    &--marker {
+      width: 120px;
+      height: 120px;
+    }
+
+    &--vector {
+      width: 450px;
+      height: 450px;
+    }
+
+    &--center {
+      width: 90px;
+      height: 90px;
+    }
+
+    &__item-text {
+      font-size: 16px;
+      padding-top: 10px;
+    }
   }
 }
 </style>

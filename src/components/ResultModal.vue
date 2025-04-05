@@ -86,21 +86,21 @@ const close = () => {
     overflow: hidden;
   }
 
-  &__header {
-    display: flex;
-    text-transform: uppercase;
-    justify-content: center;
-    align-items: center;
-    font-size: clamp(1rem, 1.5vw, 1.75rem);
-    color: $text-color;
-  }
-
+  &__header,
   &__body {
     display: flex;
     text-transform: uppercase;
     justify-content: center;
     align-items: center;
-    font-size: clamp(1rem, 1.5vw, 1.75rem);
+    font-size: 28px;
+    text-shadow: 0 1.2px 2.43px rgba(0, 0, 0, 0.25);
+  }
+
+  &__header {
+    color: $text-color;
+  }
+
+  &__body {
     color: $text-primary-color;
   }
 
@@ -125,6 +125,19 @@ const close = () => {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     left: 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .modal{
+    &__content-wrapper {
+      margin: 0 15px;
+    }
+
+    &__header,
+    &__body {
+      font-size: 20px;
+    }
   }
 }
 </style>

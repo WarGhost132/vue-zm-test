@@ -76,7 +76,7 @@ const slotText = () => {
 
 .ui-button__text {
   font-family: "Geologica", sans-serif;
-  font-size: clamp(1.25rem, 2vw, 2rem);
+  font-size: clamp(1.4rem, 2vw, 2rem);
   text-transform: uppercase;
   color: $button-text-color;
   position: relative;
@@ -92,6 +92,13 @@ const slotText = () => {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ui-button {
+    width: 300px;
+    padding: 12px 0;
   }
 }
 </style>
