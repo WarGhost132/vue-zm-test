@@ -23,19 +23,21 @@ const close = () => {
 <template>
   <div v-if="isOpen" class="modal">
     <div class="modal__overlay"></div>
-    <div class="modal__content">
-      <div class="modal__header">
-        <h2 v-if="result !== 'Пусто'">Ты молодец!</h2>
-        <h2 v-else>Увы, не в этот раз</h2>
-      </div>
-      <div class="modal__body">
-        <p v-if="result !== 'Пусто'">Вот твои {{ result }}</p>
-        <p v-else>Попробуй ещё раз!</p>
-      </div>
-      <div class="modal__footer">
-        <Button @click="close">
-          {{ result !== 'Пусто' ? 'Забрать' : 'Понятно' }}
-        </Button>
+    <div class="modal__content-wrapper">
+      <div class="modal__content">
+        <div class="modal__header">
+          <h2 v-if="result !== 'Пусто'">Ты молодец!</h2>
+          <h2 v-else>Увы, не в этот раз</h2>
+        </div>
+        <div class="modal__body">
+          <p v-if="result !== 'Пусто'">Вот твои {{ result }}</p>
+          <p v-else>Попробуй ещё раз!</p>
+        </div>
+        <div class="modal__footer">
+          <Button @click="close">
+            {{ result !== 'Пусто' ? 'Забрать' : 'Понятно' }}
+          </Button>
+        </div>
       </div>
     </div>
   </div>
@@ -64,19 +66,24 @@ const close = () => {
     -webkit-backdrop-filter: blur(10px);
   }
 
-  &__content {
-    position: relative;
-    background: $modal-background;
-    border: 9px solid black;
-    border-radius: 63px;
+  &__content-wrapper {
+    background: $modal-border;
+    border-radius: 72px;
+    padding: 9px;
+    z-index: 1001;
     max-width: 520px;
     width: 100%;
-    z-index: 1001;
+  }
+
+  &__content {
+    background: $modal-background; // или, например, #1e1e1e
+    border-radius: 63px;
     display: flex;
     flex-direction: column;
     gap: 50px;
     padding-top: 80px;
     padding-bottom: 40px;
+    overflow: hidden;
   }
 
   &__header {

@@ -18,7 +18,9 @@ const handleSpinClick = () => {
   shouldSpin.value = true
 }
 
-const handleSpinResult = (prize: string) => {
+const handleSpinResult = async (prize: string) => {
+  await new Promise((resolve) => setTimeout(resolve, 1800))
+
   isLoading.value = false
   shouldSpin.value = false
   result.value = prize
