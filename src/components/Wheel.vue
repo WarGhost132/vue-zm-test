@@ -1,14 +1,11 @@
 <script lang="ts" setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-
-interface Prize {
-  id: string
-  value: string
-}
+import { useWheel } from '@/composables/useWheel';
+import type { Prize } from '@/types/prize';
+import { watch, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps<{
   shouldSpin: boolean
-  forceWin300?: boolean
+  forceWin300: boolean
 }>()
 
 const emit = defineEmits(['spinComplete'])
@@ -24,79 +21,26 @@ const prizes: Prize[] = [
   { id: '8', value: 'Повтор' },
 ]
 
-const currentRotation = ref(0)
-const isSpinning = ref(false)
-const spinDuration = ref(4000)
-const selectedPrize = ref<Prize | null>(null)
-const animationFrameId = ref<number | null>(null)
-
-const wheelStyle = computed(() => ({
-  transform: `rotate(${currentRotation.value}deg)`,
-}))
-
-const vectorStyle = computed(() => ({
-  transform: `translate(-50%, -50%) rotate(${currentRotation.value}deg)`,
-}))
-
-const markerStyle = computed(() => ({
-  animation: isSpinning.value ? 'pulse 0.5s infinite alternate' : 'none'
-}))
-
-const startSpin = () => {
-  if (isSpinning.value) return
-  
-  isSpinning.value = true
-  selectedPrize.value = null
-  
-  const fullRotations = 5 + Math.floor(Math.random() * 3)
-  const segmentAngle = 360 / prizes.length
-  
-  const targetSegment = props.forceWin300 
-    ? prizes.findIndex(p => p.value === '300')
-    : Math.floor(Math.random() * prizes.length)
-  
-  const targetRotation = -(fullRotations * 360 + targetSegment * segmentAngle)
-  
-  const startTime = performance.now()
-  const startRotation = currentRotation.value % 360
-  const rotationDistance = targetRotation - startRotation
-  
-  const animate = (time: number) => {
-    const elapsed = time - startTime
-    const progress = Math.min(elapsed / spinDuration.value, 1)
-    
-    const easingProgress = 1 - Math.pow(1 - progress, 3)
-    
-    currentRotation.value = startRotation + rotationDistance * easingProgress
-    
-    if (progress < 1) {
-      animationFrameId.value = requestAnimationFrame(animate)
-    } else {
-      const normalizedRotation = ((currentRotation.value % 360) + 360) % 360
-      const prizeIndex = Math.floor(normalizedRotation / segmentAngle)
-      selectedPrize.value = prizes[(prizes.length - prizeIndex) % prizes.length]
-      emit('spinComplete', selectedPrize.value.value)
-      isSpinning.value = false
-      animationFrameId.value = null
-    }
-  }
-  
-  animationFrameId.value = requestAnimationFrame(animate)
-}
+const {
+  currentRotation,
+  wheelStyle,
+  vectorStyle,
+  markerStyle,
+  startSpin,
+  cleanup,
+} = useWheel(prizes)
 
 onMounted(() => {
   currentRotation.value = 0
 })
 
 onBeforeUnmount(() => {
-  if (animationFrameId.value) {
-    cancelAnimationFrame(animationFrameId.value)
-  }
+  cleanup()
 })
 
 watch(() => props.shouldSpin, (newVal) => {
   if (newVal) {
-    startSpin()
+    startSpin(!!props.forceWin300, (val) => emit('spinComplete', val))
   }
 })
 </script>
@@ -130,7 +74,7 @@ watch(() => props.shouldSpin, (newVal) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 700px;
+  min-height: 500px;
 }
 
 .wheel {

@@ -136,7 +136,7 @@ const close = () => {
 
     &__header,
     &__body {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 }

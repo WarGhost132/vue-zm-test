@@ -76,8 +76,7 @@ const closeModal = () => {
 .container {
   position: relative;
   margin: 0 auto;
-  min-height: 100dvh;
-  width: 100%;
+  min-height: 100svh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -118,8 +117,6 @@ const closeModal = () => {
     justify-content: space-between;
     align-items: center;
     padding: 50px 0;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 }
 
