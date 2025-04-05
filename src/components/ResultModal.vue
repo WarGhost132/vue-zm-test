@@ -26,12 +26,12 @@ const close = () => {
     <div class="modal__content-wrapper">
       <div class="modal__content">
         <div class="modal__header">
-          <h2 v-if="result !== 'Пусто'">Ты молодец!</h2>
-          <h2 v-else>Увы, не в этот раз</h2>
+          <h2 v-if="result !== 'Пусто'" data-text="Ты молодец!" class="custom-text">Ты молодец!</h2>
+          <h2 v-else data-text="Увы, не в этот раз" class="custom-text">Увы, не в этот раз</h2>
         </div>
         <div class="modal__body">
-          <p v-if="result !== 'Пусто'">Вот твои {{ result }}</p>
-          <p v-else>Попробуй ещё раз!</p>
+          <h2 v-if="result !== 'Пусто'" :data-text="`Вот твои ${result}`" class="custom-text">Вот твои {{ result }}</h2>
+          <h2 v-else data-text="Попробуй ещё раз!" class="custom-text">Попробуй ещё раз!</h2>
         </div>
         <div class="modal__footer">
           <Button @click="close">
@@ -76,7 +76,7 @@ const close = () => {
   }
 
   &__content {
-    background: $modal-background; // или, например, #1e1e1e
+    background: $modal-background;
     border-radius: 63px;
     display: flex;
     flex-direction: column;
@@ -91,19 +91,40 @@ const close = () => {
     text-transform: uppercase;
     justify-content: center;
     align-items: center;
-    font-size: clamp(1.25rem, 2vw, 2rem);
+    font-size: clamp(1rem, 1.5vw, 1.75rem);
+    color: $text-color;
   }
 
   &__body {
-    text-align: center;
+    display: flex;
     text-transform: uppercase;
-    font-size: clamp(1.25rem, 2vw, 2rem);
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(1rem, 1.5vw, 1.75rem);
+    color: $text-primary-color;
   }
 
   &__footer {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+.custom-text {
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: attr(data-text);
+    position: absolute;
+    z-index: -1;
+    -webkit-text-stroke: 2px transparent;
+    background: $button-text-stroke;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    left: 0;
   }
 }
 </style>
